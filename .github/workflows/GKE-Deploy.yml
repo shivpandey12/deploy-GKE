@@ -29,7 +29,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: your-docker-username/your-image-name:pipeline
+          tags: spmind/your-image-name:pipeline
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
