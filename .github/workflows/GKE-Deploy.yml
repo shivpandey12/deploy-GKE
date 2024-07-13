@@ -34,9 +34,9 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
       - name: Configure kubectl
-        uses: steebchen/kubectl@v3
+        uses: docker/kubectl@v1.0.1
         with:
-          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
+         kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}     
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f path/to/your/deployment.yaml
