@@ -34,12 +34,18 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-      - name: Configure kubectl
-        uses: steebchen/kubectl@v2
-        with:
-          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
-
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f path/to/your/deployment.yaml
-          kubectl apply -f path/to/your/service.yaml
+  deploy:
+    name: Deploy to Kubernetes
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Create kubeconfig
+      run: |
+        mkdir ${HOME}/.kube
+        echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
+        cat ${HOME}/.kube/config
+    - name: Use context
+      run: kubectl config use-context octobay-api
+    - name: Deploy to K8s
+      run: kubectl apply -f k8s/
