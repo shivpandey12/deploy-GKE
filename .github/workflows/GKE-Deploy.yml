@@ -39,5 +39,5 @@ jobs:
          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}     
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f path/to/your/deployment.yaml
-          kubectl apply -f path/to/your/service.yaml
+          kubectl apply -f deloyment/GKE-Deploy.yml
+          
